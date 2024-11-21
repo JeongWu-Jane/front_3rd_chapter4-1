@@ -31,6 +31,6 @@ jobs:
       run: | # Next.js 빌드 결과물이 위치한 디렉터리/업로드 대상 S3 버킷/S3에 남아 있는 불필요한 파일을 삭제
         aws s3 sync out/ s3://${{ secrets.S3_BUCKET_NAME }} --delete
 
-    - name: Invalidate CloudFront cache # 포된 S3 파일과 관련된 CloudFront 캐시를 무효화하여 새로운 파일 즉시 반영
+    - name: Invalidate CloudFront cache # 배포된 S3 파일과 관련된 CloudFront 캐시를 무효화하여 새로운 파일 즉시 반영
       run: | # 모든 파일의 캐시를 무효화
         aws cloudfront create-invalidation --distribution-id ${{ secrets.CLOUDFRONT_DISTRIBUTION_ID }} --paths "/*"

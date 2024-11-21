@@ -111,10 +111,9 @@
 - GitHub Actions 워크플로우 설정
 - 자동 배포 및 캐시 무효화 구현
 
-## 성능 측정 결과
+## 성능 측정 결과 (크롬 개발자 도구)
+### 방법 1) Network 탭
 ![alt text](public/aws-jw.chrome.png)
-
-## CDN 도입 전과 도입 후 비교
 |측정 지표|CDN 도입 전|CDN 도입 후|개선율|
 |:---|---:|:---:|:---:|
 |전송된 데이터|549 kB|273 kB|50.3% ↓|
@@ -130,12 +129,35 @@
 - DOMContentLoaded
   - HTML 문서 파싱 완료 시점
 
+### 방법 2) Lighthouse
+![alt text](public/aws-jw.lighthouse.png)
+|측정 지표|CDN 도입 전|CDN 도입 후|개선율|
+|:---|---:|:---:|:---:|
+|First Contentful Paint|1.5초|1.2초|20% ↓|
+|Largest Contentful Paint|6.0초|1.9초|68.3% ↓|
+|Total Blocking Time|1,540ms|670ms|56.5% ↓|
+|Speed Index간|10.8초|1.2초s|88.9% ↓|
+
+- First Contentful Paint (FCP)
+  - 페이지에서 첫 번째 콘텐츠가 표시되는 시점
+- Largest Contentful Paint (LCP)
+  - 뷰포트 내에서 가장 큰 콘텐츠가 표시되는 시점
+- Total Blocking Time (TBT)
+  - 메인 스레드가 차단된 총 시간
+- Speed Index
+  - 콘텐츠가 시각적으로 채워지는 속도
+
 ## 결과
 ### 성능 개선 효과
 - 전송 데이터 50.3% 감소
 - 초기 로딩 시간 87.8% 개선
 - 전체 페이지 로드 시간 81.2% 단축
-### 기대 효과
+- Speed Index 88.9% 개선으로 시각적 로딩 속도 향상
+- Largest Contentful Paint 68.3% 단축으로 핵심 콘텐츠 표시 시간 개선
+- Total Blocking Time 56.5% 감소로 사용자 상호작용성 최적화
+- First Contentful Paint 20% 단축으로 초기 로딩 개선
+
+### 주요 이점
 - 지연 시간 감소
   - 사용자와 가까운 엣지 로케이션에서 콘텐츠를 제공하므로 응답 시간이 크게 줄어듬
 - 원본 서버(S3) 부하 감소

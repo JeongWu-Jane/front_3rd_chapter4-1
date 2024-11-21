@@ -129,7 +129,7 @@
 - DOMContentLoaded
   - HTML 문서 파싱 완료 시점
 
-### 방법 2) Lighthouse
+### 방법 2) Lighthouse 탭
 ![alt text](public/aws-jw.lighthouse.png)
 |측정 지표|CDN 도입 전|CDN 도입 후|개선율|
 |:---|---:|:---:|:---:|
